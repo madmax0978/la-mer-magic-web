@@ -13,21 +13,21 @@ const productsData = [
     name: "The Treatment Lotion",
     price: 125,
     description: "A transformative treatment lotion that hydrates, soothes, and prepares skin.",
-    image: "/lovable-uploads/50220753-34ee-401e-87b1-0dad30147e61.png"
+    image: "lovable-uploads/50220753-34ee-401e-87b1-0dad30147e61.png"
   },
   {
     id: 2,
     name: "Crème de la Mer",
     price: 380,
     description: "The moisturizer that started it all. Ultra-rich cream that hydrates, heals and transforms.",
-    image: "/lovable-uploads/557de184-0b31-4ffe-bbd2-676d4986525b.png"
+    image: "lovable-uploads/557de184-0b31-4ffe-bbd2-676d4986525b.png"
   },
   {
     id: 3,
     name: "The Concentrate",
     price: 520,
     description: "A powerful barrier serum that helps visibly calm and strengthen skin.",
-    image: "/lovable-uploads/ac281d06-ef29-4196-8f3c-c3f1116191cb.png"
+    image: "lovable-uploads/ac281d06-ef29-4196-8f3c-c3f1116191cb.png"
   }
 ];
 
@@ -41,7 +41,6 @@ const Products = () => {
   );
 
   const handleAddToBag = (productId: number) => {
-    // In a real app, this would interact with a cart management system
     console.log("Adding product to bag:", productId);
     toast({
       title: "Added to Bag",
@@ -69,7 +68,7 @@ const Products = () => {
           <Card key={product.id} className="overflow-hidden">
             <CardHeader>
               <img
-                src={product.image}
+                src={`/${product.image}`}
                 alt={product.name}
                 className="w-full h-64 object-cover"
               />
