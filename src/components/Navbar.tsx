@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Search, ShoppingBag, User } from "lucide-react";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   return (
     <nav className="fixed w-full bg-white/90 backdrop-blur-sm z-50">
       <div className="container mx-auto px-4">
@@ -26,7 +28,10 @@ const Navbar = () => {
             <button className="p-2 hover:text-lamer-gold transition-colors">
               <User size={20} />
             </button>
-            <button className="p-2 hover:text-lamer-gold transition-colors">
+            <button 
+              className="p-2 hover:text-lamer-gold transition-colors"
+              onClick={() => navigate('/basket')}
+            >
               <ShoppingBag size={20} />
             </button>
           </div>

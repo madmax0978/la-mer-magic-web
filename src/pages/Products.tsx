@@ -4,9 +4,8 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
-// Mock product data - in a real app, this would come from an API
 const productsData = [
   {
     id: 1,
@@ -37,11 +36,28 @@ const Products = () => {
   const { toast } = useToast();
 
   const filteredProducts = productsData.filter(product =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    product.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleAddToBag = (productId: number) => {
-    console.log("Adding product to bag:", productId);
+  const handleAddToBag = (product: typeof productsData[0]) => {
+    const existingBasket = localStorage.getItem("basket");
+    let basketItems = existingBasket ? JSON.parse(existingBasket) : [];
+    
+    const existingItem = basketItems.find((item: any) => item.id === product.id);
+    
+    if (existingItem) {
+      basketItems = basketItems.map((item: any) =>
+        item.id === product.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+    } else {
+      basketItems.push({ ...product, quantity: 1 });
+    }
+    
+    localStorage.setItem("basket", JSON.stringify(basketItems));
+    
     toast({
       title: "Added to Bag",
       description: "The product has been added to your shopping bag.",
@@ -85,7 +101,7 @@ const Products = () => {
               >
                 View Details
               </Button>
-              <Button onClick={() => handleAddToBag(product.id)}>
+              <Button onClick={() => handleAddToBag(product)}>
                 Add to Bag
               </Button>
             </CardFooter>
