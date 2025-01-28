@@ -1,8 +1,7 @@
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
@@ -31,14 +30,23 @@ const productsData = [
 ];
 
 const Products = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchParams] = useSearchParams();
+  const [filteredProducts, setFilteredProducts] = useState(productsData);
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const filteredProducts = productsData.filter(product =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    product.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  useEffect(() => {
+    const searchQuery = searchParams.get("search");
+    if (searchQuery) {
+      const filtered = productsData.filter(product =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    } else {
+      setFilteredProducts(productsData);
+    }
+  }, [searchParams]);
 
   const handleAddToBag = (product: typeof productsData[0]) => {
     const existingBasket = localStorage.getItem("basket");
@@ -66,19 +74,6 @@ const Products = () => {
 
   return (
     <div className="container mx-auto px-4 pt-24 pb-12">
-      <div className="mb-8">
-        <div className="relative">
-          <Input
-            type="text"
-            placeholder="Search products..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
-          />
-          <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-        </div>
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredProducts.map((product) => (
           <Card key={product.id} className="overflow-hidden">
