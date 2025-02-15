@@ -54,6 +54,22 @@ export const siteContent = {
       ingredients: "Concentrated Miracle Broth™, Lime Tea Concentrate, Marine Algae",
       howToUse: "Apply morning and evening after cleansing and before moisturizer.",
       size: "50ml"
+    },
+    {
+      id: 4,
+      name: "Night Recovery Cream",
+      price: 420,
+      shortDescription: "Luxurious night cream for intensive skin regeneration and repair.",
+      fullDescription: "This rich night cream works while you sleep to help repair and regenerate your skin. Powered by our advanced Miracle Broth™ technology, it helps strengthen the skin's natural renewal process, resulting in smoother, more radiant skin by morning.",
+      image: "lovable-uploads/2242ce4a-0fbd-42ea-b264-15aff45f7d10.png",
+      benefits: [
+        "Intensive overnight repair",
+        "Enhances skin's natural renewal",
+        "Promotes radiant complexion"
+      ],
+      ingredients: "Miracle Broth™, Regenerating Ferment™, Sea Lavender",
+      howToUse: "Apply as the final step in your evening skincare routine. Gently massage into skin using upward motions.",
+      size: "50ml"
     }
   ],
   
@@ -67,9 +83,9 @@ export const siteContent = {
     },
     {
       id: 2,
-      name: "Le Concentré",
-      price: 580,
-      description: "Protective serum for renewed skin",
+      name: "Night Recovery Cream",
+      price: 420,
+      description: "Intensive regenerating night cream",
       image: "lovable-uploads/50220753-34ee-401e-87b1-0dad30147e61.png"
     },
     {
