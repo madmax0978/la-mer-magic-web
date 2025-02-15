@@ -1,6 +1,8 @@
+
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { siteContent } from "../config/siteContent";
 
 const Index = () => {
   return (
@@ -13,10 +15,10 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="fade-in">
               <h1 className="text-5xl md:text-7xl font-display mb-6">
-                NIGHT ESSENTIALS
+                {siteContent.brand.slogan}
               </h1>
               <p className="text-lg mb-8 max-w-md">
-                Elevate your night routine with La Mer's Glow Up Sleep Kit: luxe satin essentials, skincare treasures, and aromatherapy.
+                {siteContent.brand.description}
               </p>
               <Link
                 to="/collection"
@@ -41,42 +43,26 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-display text-center mb-12">Featured Products</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Link to="/products/1" className="group text-center fade-in">
-              <div className="transform transition-transform duration-300 group-hover:scale-105">
-                <img
-                  src="/lovable-uploads/2242ce4a-0fbd-42ea-b264-15aff45f7d10.png"
-                  alt="Luxury Sleep Mist"
-                  className="w-full mb-4 rounded-lg"
-                />
-                <h3 className="font-display text-xl mb-2 group-hover:text-lamer-gold transition-colors">Luxury Sleep Mist</h3>
-                <p className="text-sm mb-4">A calming pillow and room spray</p>
-                <span className="text-lamer-gold">$150</span>
-              </div>
-            </Link>
-            <Link to="/products/2" className="group text-center fade-in">
-              <div className="transform transition-transform duration-300 group-hover:scale-105">
-                <img
-                  src="/lovable-uploads/50220753-34ee-401e-87b1-0dad30147e61.png"
-                  alt="Le Concentré"
-                  className="w-full mb-4 rounded-lg"
-                />
-                <h3 className="font-display text-xl mb-2 group-hover:text-lamer-gold transition-colors">Le Concentré</h3>
-                <p className="text-sm mb-4">Protective serum for renewed skin</p>
-                <span className="text-lamer-gold">$580</span>
-              </div>
-            </Link>
-            <Link to="/products/3" className="group text-center fade-in">
-              <div className="transform transition-transform duration-300 group-hover:scale-105">
-                <img
-                  src="/lovable-uploads/ac281d06-ef29-4196-8f3c-c3f1116191cb.png"
-                  alt="Valentine's Collection"
-                  className="w-full mb-4 rounded-lg"
-                />
-                <h3 className="font-display text-xl mb-2 group-hover:text-lamer-gold transition-colors">Valentine's Collection</h3>
-                <p className="text-sm mb-4">Limited edition lip care set</p>
-                <span className="text-lamer-gold">$200</span>
-              </div>
-            </Link>
+            {siteContent.featuredProducts.map((product) => (
+              <Link 
+                key={product.id}
+                to={`/products/${product.id}`} 
+                className="group text-center fade-in"
+              >
+                <div className="transform transition-transform duration-300 group-hover:scale-105">
+                  <img
+                    src={`/${product.image}`}
+                    alt={product.name}
+                    className="w-full mb-4 rounded-lg"
+                  />
+                  <h3 className="font-display text-xl mb-2 group-hover:text-lamer-gold transition-colors">
+                    {product.name}
+                  </h3>
+                  <p className="text-sm mb-4">{product.description}</p>
+                  <span className="text-lamer-gold">${product.price}</span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
